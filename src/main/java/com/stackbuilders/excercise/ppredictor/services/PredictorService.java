@@ -66,9 +66,13 @@ public class PredictorService {
         calendarTime.set(Calendar.HOUR_OF_DAY, time.getHour());
         calendarTime.set(Calendar.MINUTE, time.getMinute());
         
-        if (calendarTime.after(calendarFirstInit) && calendarTime.before(calendarFirstFinish) || (calendarTime.equals(calendarFirstInit) || calendarTime.equals(calendarFirstFinish))) {
+        if ((calendarTime.after(calendarFirstInit) && calendarTime.before(calendarFirstFinish)) || 
+                ((calendarTime.get(Calendar.HOUR)==(calendarFirstInit.get(Calendar.HOUR))) &&  (calendarTime.get(Calendar.MINUTE)==(calendarFirstInit.get(Calendar.MINUTE))))|| 
+                ((calendarTime.get(Calendar.HOUR)==(calendarFirstFinish.get(Calendar.HOUR))) &&  (calendarTime.get(Calendar.MINUTE)==(calendarFirstFinish.get(Calendar.MINUTE))))) {
             return false;
-        } else if (calendarTime.after(calendarSecInit) && calendarTime.before(calendarSecFinish) || (calendarTime.equals(calendarSecInit) || calendarTime.equals(calendarSecFinish))) {
+        } else if ((calendarTime.after(calendarSecInit) && calendarTime.before(calendarSecFinish)) || 
+                ((calendarTime.get(Calendar.HOUR)==(calendarSecInit.get(Calendar.HOUR))) &&  (calendarTime.get(Calendar.MINUTE)==(calendarSecInit.get(Calendar.MINUTE))))|| 
+                ((calendarTime.get(Calendar.HOUR)==(calendarSecFinish.get(Calendar.HOUR))) &&  (calendarTime.get(Calendar.MINUTE)==(calendarSecFinish.get(Calendar.MINUTE))))) {
             return false;
         } else {
             return true;

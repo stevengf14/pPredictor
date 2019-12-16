@@ -16,8 +16,10 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -42,6 +44,10 @@ public class predictorBean {
     }
 
     //Methods
+    /**
+     * Principal Method, predict if a plate at date and time is valid to
+     * circulate.
+     */
     public void predict() {
         boolean circulates = predictorService.predict(getNumber(getPlate()), getDay(getDate()), getTime(getTime()));
         click = true;
@@ -52,6 +58,13 @@ public class predictorBean {
         }
     }
 
+    /**
+     * This method return the number of the day of the week from the parameter
+     * date as String Example: Weednesday = 3
+     *
+     * @param dateString
+     * @return
+     */
     public int getDay(String dateString) {
         int dayOfWeek = 0;
         try {
@@ -64,13 +77,25 @@ public class predictorBean {
         } catch (ParseException ex) {
             Logger.getLogger(predictorBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return dayOfWeek-1;
+        return dayOfWeek - 1;
     }
 
+    /**
+     * This method returns the last digit of the plate
+     *
+     * @param plate
+     * @return
+     */
     public int getNumber(String plate) {
         return Integer.valueOf(String.valueOf(plate.charAt(plate.length() - 1)));
     }
 
+    /**
+     * This method construct the Time object from the time as String
+     *
+     * @param time
+     * @return
+     */
     public Time getTime(String time) {
         StringTokenizer st = new StringTokenizer(time, ":");
         Time objTime = new Time();
